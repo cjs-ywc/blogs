@@ -1,0 +1,80 @@
+{% extends 'blog_mg_tmp/base.html' %}
+    {% block title %}
+        写文章 - {{ username }}博客管理系统
+    {% endblock %}
+{% block head %}
+    {{ block.super }}
+{% endblock %}
+{% block body %}
+{{ block.super }}
+{% endblock %}
+    {% block main %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+      <div class="row">
+        <form action="" method="post" class="add-article-form">
+            {% csrf_token %}
+          <div class="col-md-9">
+            <h1 class="page-header">撰写新文章</h1>
+            <div class="form-group">
+                {{ form }}
+              <label for="article-title" class="sr-only">标题</label>
+              <input type="text" id="article-title" name="title" class="form-control" value="{{ article.article_title }}" required autofocus autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="article-content" class="sr-only">内容</label>
+               <input type="text" id="article-content" name="content" class="form-control" value="{{ article.article_text }}">
+            </div>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>描述</span></h2>
+              <div class="add-article-box-content">
+              	<input class="form-control" name="describe" type="text" value="{{ article.desc }}">
+                <span class="prompt-text">描述是可选的手工创建的内容总结，并可以在网页描述中使用</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <h1 class="page-header">操作</h1>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>分类</span></h2>
+              <div class="add-article-box-content">
+                <input type="text" class="form-control" placeholder="输入文章分类" name="tags" autocomplete="off" value="{{ article.category_name.category_name }}">
+                <span class="prompt-text">请输入文章分类</span> </div>
+            </div>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>标题图片</span></h2>
+              <div class="add-article-box-content">
+                <input type="text" class="form-control" placeholder="点击按钮选择图片" id="pictureUpload" name="titlepic" autocomplete="off">
+              </div>
+              <div class="add-article-box-footer">
+                <button class="btn btn-default" type="button" ID="upImage">选择</button>
+              </div>
+            </div>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>发布</span></h2>
+              <div class="add-article-box-content">
+              	<p><label>状态：</label><span class="article-status-display">未发布</span></p>
+                <p><label>公开度：</label><input type="radio" name="visibility" value="1" checked/>公开 <input type="radio" name="visibility" value="0" />加密</p>
+              </div>
+              <div class="add-article-box-footer">
+                <button class="btn btn-primary" type="submit" name="submit">发布</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    {% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    {% load static %}
+    <script src="{% static 'kindeditor/kindeditor-all-min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'kindeditor/lang/zh-CN.js' %}" type="text/javascript"></script>
+    	<script type="text/javascript">
+	    KindEditor.ready(function(K) {
+	            window.editor = K.create('#article-content',{
+	                uploadJson:'/util/upload/kindeditor'
+	            });
+	    });
+	</script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "blog_mg_tmp/base.html" %}
+{% block head %}
+    {{ block.super }}
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="/static/blog_mg/css/login.css">
+    <link rel="apple-touch-icon-precomposed" href="/static/blog_mg/images/icon/icon.png">
+    <link rel="shortcut icon" href="/static/blog_mg/images/icon/favicon.ico">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+  <div class="siteIcon"><img src="/static/blog_mg/images/icon/icon.png" alt="" data-toggle="tooltip" data-placement="top" title="" draggable="false" /></div>
+  <form action="" method="post" autocomplete="off" class="form-signin">
+      {% csrf_token %}
+    <h2 class="form-signin-heading">管理员登录</h2>
+    <label for="userName" class="sr-only">用户名</label>
+    <input type="text" id="userName" name="username" class="form-control" placeholder="请输入用户名" required autofocus autocomplete="off" maxlength="10">
+    {{ login_form.errors.username }}
+      <label for="userPwd" class="sr-only">密码</label>
+    <input type="password" id="userPwd" name="userpwd" class="form-control" placeholder="请输入密码" required autocomplete="off" maxlength="18">
+      {{ login_form.errors.passwd }}
+      {{ tip }}
+    <a><button class="btn btn-lg btn-primary btn-block" type="submit" id="signinSubmit">登录</button></a>
+  </form>
+</div>
+<script src="/static/blog_mg/js/bootstrap.min.js"></script>
+<script>
+$('.siteIcon img').click(function(){
+	window.location.reload();
+});
+$('#signinSubmit').click(function(){
+	if($('#userName').val() === ''){
+		$(this).text('用户名不能为空');
+	}else if($('#userPwd').val() === ''){
+		$(this).text('密码不能为空');
+	}else{
+		$(this).text('请稍后...');
+	}
+});
+</script>
+{% endblock %}

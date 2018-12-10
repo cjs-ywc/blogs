@@ -1,0 +1,45 @@
+{% extends 'blog_app_tmp/base.html' %}
+{% block head %}
+<link href="/static/blog_app/css/info.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<article>
+  <aside class="l_box">
+      <div class="about_me">
+        <h2>关于我</h2>
+        <ul>
+          <i><img src="/static/blog_app/images/4.jpg"></i>
+          <p><b>杨青</b>，一个80后草根女站长！09年入行。一直潜心研究web前端技术，一边工作一边积累经验，分享一些个人博客模板，以及SEO优化等心得。</p>
+        </ul>
+      </div>
+      <div class="wdxc">
+        <h2>我的相册</h2>
+        <ul>
+          <li><a href="/"><img src="/static/blog_app/images/7.jpg"></a></li>
+          <li><a href="/"><img src="/static/blog_app/images/8.jpg"></a></li>
+          <li><a href="/"><img src="/static/blog_app/images/9.jpg"></a></li>
+          <li><a href="/"><img src="/static/blog_app/images/10.jpg"></a></li>
+          <li><a href="/"><img src="/static/blog_app/images/11.jpg"></a></li>
+          <li><a href="/"><img src="/static/blog_app/images/12.jpg"></a></li>
+        </ul>
+      </div>
+{{ block.super }}
+   <main>
+    <div class="infosbox">
+      <div class="newsview">
+        <h3 class="news_title">{{ article.article_title }}</h3>
+        <div class="bloginfo">
+          <ul>
+            <li class="author">作者：{{ article.author.user_name }}</li>
+            <li class="timer">时间：{{ article.article_create_time }}</li>
+            <li class="view">被查看次数：{{ article.see_number }}</li>
+          </ul>
+        </div>
+        <div class="tags"><a class="lmname">分类：{{ article.category_name.category_name }}</a></div>
+        <div class="news_about"><strong>简介</strong>{{ article.desc }}</div>
+        <div class="news_con">{{ article.article_text }}</div>
+      </div>
+    </div>
+  </main>
+</article>
+{% endblock %}
